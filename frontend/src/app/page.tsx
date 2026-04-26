@@ -7,9 +7,9 @@ export default function Home() {
   return (
     <div>
       <div className="header"><Header /></div>
-      <div className="header"><SubHeader /></div>
-      <div className="header"><Main /></div>
-      <div className="header"><Footer /></div>
+      <div className="subHeader"><SubHeader /></div>
+      <div className="main"><Main /></div>
+      <div className="footer"><Footer /></div>
     </div>
   );
 }
