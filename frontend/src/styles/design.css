@@ -26,3 +26,8 @@
   height:100%;
   background-color: blue;
 }
+
+.Container_Card {
+  width: 100px;
+  background-color: aqua;
+}
