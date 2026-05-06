@@ -48,6 +48,7 @@ class ProductController extends Controller
         return [
             'id'           => $product->id,
             'title'        => $product->title,
+            'creator_name' => $product->creator_name,
             'description'  => $product->description,
             'price'        => $product->price,
             'is_free'      => $product->price === 0,
