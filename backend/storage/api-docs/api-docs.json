@@ -1,0 +1,425 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "AIContentsMarket API",
+        "description": "AIコンテンツ販売サイトのAPI。購入済みユーザーのみダウンロード可能。",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "ローカル開発サーバー"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "認証"
+                ],
+                "summary": "ユーザー登録",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "テストユーザー"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "登録成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|abc123..."
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "テストユーザー"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "認証"
+                ],
+                "summary": "ログイン",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ログイン成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|abc123..."
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "テストユーザー"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "user@example.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "認証"
+                ],
+                "summary": "ログアウト",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "ログアウト成功"
+                    },
+                    "401": {
+                        "description": "未認証"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "商品"
+                ],
+                "summary": "商品一覧",
+                "operationId": "1bfaa78d1c2c3848ab8165c5dadcad3e",
+                "responses": {
+                    "200": {
+                        "description": "商品一覧取得成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "AIイラスト素材セット"
+                                            },
+                                            "creator_name": {
+                                                "type": "string",
+                                                "example": "田中 太郎"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Midjourneyで生成した素材です。"
+                                            },
+                                            "price": {
+                                                "type": "integer",
+                                                "example": 0
+                                            },
+                                            "is_free": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "file_name": {
+                                                "type": "string",
+                                                "example": "ai_illustration_set.txt"
+                                            },
+                                            "file_size": {
+                                                "type": "integer",
+                                                "example": 228
+                                            },
+                                            "download_url": {
+                                                "type": "string",
+                                                "example": "http://127.0.0.1:8000/api/products/1/download"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "example": "published"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2026-05-06T07:24:57.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "商品"
+                ],
+                "summary": "商品詳細",
+                "operationId": "7ab21ddb713501f3d4c2914892c02a21",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "商品詳細取得成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "AIイラスト素材セット"
+                                        },
+                                        "creator_name": {
+                                            "type": "string",
+                                            "example": "田中 太郎"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Midjourneyで生成した素材です。"
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "is_free": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "download_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/products/1/download"
+                                        },
+                                        "is_purchased": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{id}/download": {
+            "get": {
+                "tags": [
+                    "商品"
+                ],
+                "summary": "商品ダウンロード（購入済みのみ）",
+                "operationId": "0350b2c29891b5ff5b23b7c8cd500052",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ファイルダウンロード成功"
+                    },
+                    "403": {
+                        "description": "未購入"
+                    },
+                    "401": {
+                        "description": "未認証"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/purchases": {
+            "post": {
+                "tags": [
+                    "購入"
+                ],
+                "summary": "商品を購入する（無料）",
+                "operationId": "c5d930515642418b262ea062726e90cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "購入成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "購入が完了しました。"
+                                        },
+                                        "product_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "example": "AIイラスト素材セット"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "すでに購入済み"
+                    },
+                    "401": {
+                        "description": "未認証"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "登録・ログインで取得したトークンを入力してください",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "認証",
+            "description": "認証"
+        },
+        {
+            "name": "商品",
+            "description": "商品"
+        },
+        {
+            "name": "購入",
+            "description": "購入"
+        }
+    ]
+}
