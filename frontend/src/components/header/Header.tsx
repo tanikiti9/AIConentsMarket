@@ -9,7 +9,7 @@ const Header = () => {
         <li><Link href="/cart">カート</Link></li>
         <li id='header-logo'><Link href="#"><img src="#" alt="" />logo</Link></li>
         <li><Link href="#">投稿ページ</Link></li>
-        <li><Link href="/signup">ログイン</Link></li>
+        <li><Link href="/signin">ログイン</Link></li>
       </ul>
     </div>
   )
