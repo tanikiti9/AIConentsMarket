@@ -14,7 +14,6 @@ class Product extends Model
         'title',
         'creator_name',
         'description',
-        'price',
         'file_path',
         'file_name',
         'file_size',

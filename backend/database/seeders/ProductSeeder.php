@@ -36,7 +36,6 @@ class ProductSeeder extends Seeder
                 [
                     'creator_name' => $data['creator_name'],
                     'description'  => $data['description'],
-                    'price'       => 0,
                     'file_path'   => $path,
                     'file_name'   => $data['file_name'],
                     'file_size'   => strlen($data['content']),
