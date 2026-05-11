@@ -6,10 +6,7 @@ const page = () => {
     <div>
       ログイン
       <div>ユーザーネーム</div>
-      <input 
-      type="text"
-      value={name}
-      onChange{() => setName()}
+      <input
       />
       <div>パスワード</div>
       <input type="text" />
