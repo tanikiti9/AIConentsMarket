@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store/getToken';
 
 const SignUpPage = () => {
   const router = useRouter();
+  const setAuth = useAuthStore((state) => state.setAuth);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +33,9 @@ const SignUpPage = () => {
         setError(data.message || '登録に失敗しました。');
         return;
       }
-      localStorage.setItem('token', data.token);
+
+      setAuth(data.token, data.user);//tokenをstoreに保存
+      console.log(data.token);
 
       router.push('/');//メインページへ移動
 

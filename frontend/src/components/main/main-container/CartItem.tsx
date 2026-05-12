@@ -20,7 +20,7 @@ export default function CartItem({ product }: Props) {
       return data;
     };
 
-    const url = 'https://example.com/api/user';
+    const url = '/api/products/{id}/download';
     fetchUserData(url)
       .then(user => console.log('User:', user))
       .catch(error => console.error('Error:', error));

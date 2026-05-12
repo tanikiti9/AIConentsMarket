@@ -14,3 +14,9 @@ export interface product {
     status: string;
     created_at: string;
 }
+
+export interface user {
+    id: number;
+    name: string;
+    email: string;
+}
