@@ -34,7 +34,6 @@ class AuthController extends Controller
     public function register(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users',
             'password' => 'required|string|min:8',
         ]);
@@ -42,7 +41,7 @@ class AuthController extends Controller
         $user  = User::create($data);
         $token = $user->createToken('api')->plainTextToken;
 
-        return response()->json(['token' => $token, 'user' => ['id' => $user->id, 'name' => $user->name, 'email' => $user->email]], 201);
+        return response()->json(['token' => $token, 'user' => ['id' => $user->id, 'email' => $user->email]], 201);
     }
 
     #[OA\Post(
@@ -79,7 +78,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('api')->plainTextToken;
 
-        return response()->json(['token' => $token, 'user' => ['id' => $user->id, 'name' => $user->name, 'email' => $user->email]]);
+        return response()->json(['token' => $token, 'user' => ['id' => $user->id, 'email' => $user->email]]);
     }
 
     #[OA\Post(
