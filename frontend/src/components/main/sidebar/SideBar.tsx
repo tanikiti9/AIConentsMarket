@@ -1,6 +1,20 @@
 import React from 'react'
 
-const SideBar = () => {
+interface NavItem {
+  icon: string;
+  name: string;
+}
+
+interface NavSection {
+  id: string;
+  label: string;
+  icon: string;
+  items: NavItem[];
+}
+
+
+const SideBar = (navItem: NavItem) => {
+
   return (
     <div>SideBar</div>
   )
