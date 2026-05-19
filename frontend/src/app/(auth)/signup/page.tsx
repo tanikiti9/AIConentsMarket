@@ -6,7 +6,6 @@ import { useAuthStore } from '@/store/getToken';
 const SignUpPage = () => {
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setAuth);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -24,7 +23,7 @@ const SignUpPage = () => {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({email, password }),
       });
 
       const data = await res.json();
@@ -49,15 +48,6 @@ const SignUpPage = () => {
       <h1>新規登録</h1>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      <div>
-        <p>ユーザー名</p>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
       <div>
         <p>メールアドレス</p>
         <input

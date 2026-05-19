@@ -17,6 +17,5 @@ export interface product {
 
 export interface user {
     id: number;
-    name: string;
     email: string;
 }

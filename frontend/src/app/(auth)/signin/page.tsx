@@ -26,6 +26,7 @@ const SignInpage = () => {
       }
 
       setAuth(data.token, data.user);
+      console.log(data.token, data.user)
 
       router.push('/');
     } catch (e) {
@@ -38,7 +39,7 @@ const SignInpage = () => {
       <h1>ログイン</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <div>ユーザーネーム</div>
+      <div>メールアドレス</div>
       <input
         type='email'
         value={email}
