@@ -9,24 +9,16 @@ type AuthStore = {
     clearAuth: () => void;
 }
 
-export const useAuthStore = create<AuthStore>((set) => ({
-    token: null,
-    user: null,
-    setAuth: (token, user) => set({token, user}),
-    clearAuth: () => set({token: null, user: null})
-}))
+import { persist } from 'zustand/middleware';
 
-// リロードしても保存
-// import { persist } from 'zustand/middleware';
-
-// export const useAuthStore = create<AuthStore>()(
-//   persist(
-//     (set) => ({
-//       token: null,
-//       user: null,
-//       setAuth: (token, user) => set({ token, user }),
-//       clearAuth: () => set({ token: null, user: null }),
-//     }),
-//     { name: 'auth-storage' } // localStorageのキー名
-//   )
-// );
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => ({
+      token: null,
+      user: null,
+      setAuth: (token, user) => set({ token, user }),
+      clearAuth: () => set({ token: null, user: null }),
+    }),
+    { name: 'auth-storage' } // localStorageのキー名
+  )
+);
