@@ -36,6 +36,20 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
+    public function receiveSidebarFilter(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'selected_tags'   => ['sometimes', 'array'],
+            'selected_tags.*' => ['string', 'max:100'],
+            'text'            => ['sometimes', 'nullable', 'string', 'max:255'],
+        ]);
+
+        return response()->json([
+            'selected_tags' => array_values($validated['selected_tags'] ?? []),
+            'text'          => trim((string) ($validated['text'] ?? '')),
+        ]);
+    }
+
     #[OA\Get(
         path: '/api/products/{id}',
         summary: '商品詳細',
