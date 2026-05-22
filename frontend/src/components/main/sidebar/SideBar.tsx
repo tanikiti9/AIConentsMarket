@@ -1,22 +1,17 @@
 import React from 'react'
+import { NavSection } from '@/components/interface'
+import { navSections } from '@/data/navitem'
+import Section from './Section'
+import { logout } from '@/store/getToken'
 
-interface NavItem {
-  icon: string;
-  name: string;
-}
-
-interface NavSection {
-  id: string;
-  label: string;
-  icon: string;
-  items: NavItem[];
-}
-
-
-const SideBar = (navItem: NavItem) => {
-
+const SideBar = (navItem: NavSection) => {
   return (
-    <div>SideBar</div>
+    <div>
+      {navSections.map((navSection) => (
+        <Section key={navSection.id} {...navSection}/>
+      ))}
+      <button onClick={()=>logout()}>ログアウト</button>
+    </div>
   )
 }
 
