@@ -13,6 +13,11 @@ export default function CartItem({ product }: Props) {
   const token = useAuthStore((state) => state.token);
 
   const handleDownload = async () => {
+    console.log('token:', token);
+    if (!token) {
+      alert('ダウンロードするにはログインしてください');
+      return;
+    }
     try {
       const purchaseRes = await fetch('api/purchases', {
         method: 'POST',
@@ -33,7 +38,10 @@ export default function CartItem({ product }: Props) {
         },
       });
 
-      if (!downloadRes.ok) throw new Error('ダウンロードに失敗しました');
+      if (!downloadRes.ok) {
+        alert('ログインしてください')
+        return
+      };
 
       const blob = await downloadRes.blob();
       const url = URL.createObjectURL(blob);
