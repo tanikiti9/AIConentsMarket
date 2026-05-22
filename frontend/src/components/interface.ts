@@ -19,3 +19,15 @@ export interface user {
     id: number;
     email: string;
 }
+
+export interface NavItem {
+  icon: string;
+  name: string;
+}
+
+export interface NavSection {
+  id: string;
+  label: string;
+  icon: string;
+  items: NavItem[];
+}

@@ -1,14 +1,15 @@
-import React from 'react'
+'use client'
 import SideBar from './sidebar/SideBar'
 import MainContainer from './main-container/MainContainer'
 
 
 const Main = () => {
     return (
-        <>
-            <div><SideBar /></div>
+        <main>
+            <div><SideBar/></div>
             <div><MainContainer /></div>
-        </>
+        </main>
+
     )
 }
 
