@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import InputField from './InputField'
 
 const Header = () => {
   return (
@@ -8,7 +9,7 @@ const Header = () => {
         <li><Link href="#">お気に入り</Link></li>
         <li><Link href="/cart">カート</Link></li>
         <li id='header-logo'><Link href="#"><img src="#" alt="" />logo</Link></li>
-        <input type="text" />
+        <li id='inputfield'><InputField /></li>
         <li><Link href="#">投稿ページ</Link></li>
         <li><Link href="/signin">ログイン</Link></li>
       </ul>

@@ -22,12 +22,24 @@
 }
 
 #header-logo {
-  width: 50%;
+  width: 20%;
   height:100%;
   background-color: blue;
+}
+
+#inputfield {
+  width: 30%;
 }
 
 .Container_Card {
   width: 100px;
   background-color: aqua;
+}
+
+.SideBar {
+  width: 20%;
+}
+
+.MainContainer {
+  width: 80%;
 }
