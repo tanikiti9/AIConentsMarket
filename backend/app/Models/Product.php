@@ -18,6 +18,11 @@ class Product extends Model
         'file_name',
         'file_size',
         'status',
+        'tags',
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
     ];
 
     public function purchases(): HasMany

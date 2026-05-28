@@ -44,10 +44,23 @@ class ProductController extends Controller
             'text'            => ['sometimes', 'nullable', 'string', 'max:255'],
         ]);
 
-        return response()->json([
-            'selected_tags' => array_values($validated['selected_tags'] ?? []),
-            'text'          => trim((string) ($validated['text'] ?? '')),
-        ]);
+        $query = Product::where('status', 'published');
+
+        foreach ($validated['selected_tags'] ?? [] as $tag) {
+            $query->whereJsonContains('tags', $tag);
+        }
+
+        if ($text = trim((string) ($validated['text'] ?? ''))) {
+            $query->where(function ($q) use ($text) {
+                $q->where('title', 'like', "%{$text}%")
+                  ->orWhere('description', 'like', "%{$text}%")
+                  ->orWhere('creator_name', 'like', "%{$text}%");
+            });
+        }
+
+        $products = $query->get()->map(fn ($p) => $this->format($p));
+
+        return response()->json($products);
     }
 
     #[OA\Get(
@@ -115,6 +128,7 @@ class ProductController extends Controller
             'file_size'    => $product->file_size,
             'download_url' => url("/api/products/{$product->id}/download"),
             'status'       => $product->status,
+            'tags'         => $product->tags ?? [],
             'created_at'   => $product->created_at,
         ];
     }
