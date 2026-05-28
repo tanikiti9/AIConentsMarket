@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/getToken';
+import Loading from '@/components/Loading';
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -10,10 +11,11 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
     setError('');
-
+    setLoading(true)
     if (password !== passwordConfirm) {
       setError('パスワードが一致しません。');
       return;
@@ -40,8 +42,12 @@ const SignUpPage = () => {
 
     } catch (e) {
       setError('通信エラーが発生しました。');
+    } finally{
+      setLoading(false)
     }
-  };
+  }
+
+  if (loading) return <Loading />
 
   return (
     <div>

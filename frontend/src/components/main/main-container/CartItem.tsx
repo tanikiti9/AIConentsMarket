@@ -2,7 +2,7 @@
 import { product_type } from '@/components/interface';
 import { useCartStore } from '@/store/cartStore';
 import { useAuthStore } from '@/store/getToken';
-import { cache } from 'react';
+import { cache, useState } from 'react';
 
 type Props = {
   product: product_type;
@@ -11,8 +11,10 @@ type Props = {
 export default function CartItem({ product }: Props) {
   const removeItem = useCartStore((state) => state.removeItem);
   const token = useAuthStore((state) => state.token);
+  const [loading, setLoading] = useState(false)
 
   const handleDownload = async () => {
+    setLoading(true)
     console.log('token:', token);
     if (!token) {
       alert('ダウンロードするにはログインしてください');
@@ -53,8 +55,12 @@ export default function CartItem({ product }: Props) {
     }
     catch (error) {
       console.error('Error', error)
+    }finally{
+      setLoading(false)
     }
   }
+
+  if (loading) return <h1>コンテンツをダウンロード中です</h1>
 
   return (
     <div className='Container_Card'>

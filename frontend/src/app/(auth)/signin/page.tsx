@@ -1,7 +1,9 @@
 'use client'
 import { useAuthStore } from '@/store/getToken';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Loading from '@/components/Loading';
+import Link from 'next/link';
 
 const SignInpage = () => {
   const router = useRouter();
@@ -9,8 +11,10 @@ const SignInpage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
+    setLoading(true)
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
@@ -31,9 +35,15 @@ const SignInpage = () => {
       router.push('/');
     } catch (e) {
       setError('通信エラーが発生しました')
+    } finally {
+      setLoading(false);
     }
 
   }
+
+
+  if (loading) return <Loading />;
+
   return (
     <div>
       <h1>ログイン</h1>
@@ -51,7 +61,9 @@ const SignInpage = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleSubmit}>送信</button>
-
+      <div>
+        <button><Link href='/signup'>アカウント作成</Link></button>
+      </div>
     </div>
   )
 }

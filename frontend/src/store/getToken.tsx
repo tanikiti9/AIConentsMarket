@@ -29,4 +29,5 @@ export const useAuthStore = create<AuthStore>()(
 export const logout = () => {
   useAuthStore.getState().clearAuth();
   useAuthStore.persist.clearStorage();
+  alert('ログアウトしました')
 };
