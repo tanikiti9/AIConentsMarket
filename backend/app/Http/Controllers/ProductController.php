@@ -46,8 +46,12 @@ class ProductController extends Controller
 
         $query = Product::where('status', 'published');
 
-        foreach ($validated['selected_tags'] ?? [] as $tag) {
-            $query->whereJsonContains('tags', $tag);
+        $selectedTags = $validated['selected_tags'] ?? [];
+        if (!empty($selectedTags)) {
+            $query->whereNotNull('tags');
+            foreach ($selectedTags as $tag) {
+                $query->whereRaw('(tags)::jsonb @> ?::jsonb', [json_encode([$tag])]);
+            }
         }
 
         if ($text = trim((string) ($validated['text'] ?? ''))) {
