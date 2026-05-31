@@ -19,6 +19,7 @@ class Product extends Model
         'file_size',
         'status',
         'tags',
+        'content_type',
     ];
 
     protected $casts = [
