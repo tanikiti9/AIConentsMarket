@@ -18,5 +18,6 @@ Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/purchases', [PurchaseController::class, 'store']);
+    Route::get('/user/purchases', [PurchaseController::class, 'index']);
     Route::get('/products/{product}/download', [ProductController::class, 'download']);
 });
