@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
                 'description'  => 'Midjourneyで生成した高品質なイラスト素材です。商用利用可能。',
                 'file_name'    => 'ai_illustration_set.txt',
                 'tags'         => ['アニメ調', 'ファンタジー', 'ソフト', '日本風'],
+                'content_type' => 'image',
                 'content'      => "AI Illustration Set\n===================\nThis is a sample AI illustration set.\nGenerated with Midjourney v6.\n\n[File 1] landscape_01.png (placeholder)\n[File 2] landscape_02.png (placeholder)\n[File 3] portrait_01.png (placeholder)\n",
             ],
             [
@@ -25,6 +26,7 @@ class ProductSeeder extends Seeder
                 'description'  => 'すぐに使えるMidjourneyプロンプト50選。ジャンル別に整理済み。',
                 'file_name'    => 'midjourney_prompts.txt',
                 'tags'         => ['リアル調', 'サイバーパンク', '近未来', 'クール'],
+                'content_type' => 'prompt',
                 'content'      => "Midjourney Prompt Templates\n===========================\n\n[Landscape]\n1. \"serene mountain lake at sunset, golden hour, photorealistic --ar 16:9 --v 6\"\n2. \"misty forest path, morning light, cinematic --ar 16:9 --v 6\"\n\n[Portrait]\n3. \"elegant woman in traditional Japanese kimono, studio lighting --ar 2:3 --v 6\"\n4. \"young man with cyberpunk aesthetic, neon lights --ar 2:3 --v 6\"\n\n[Architecture]\n5. \"futuristic city skyline at night, ultra-detailed --ar 16:9 --v 6\"\n",
             ],
         ];
@@ -43,6 +45,7 @@ class ProductSeeder extends Seeder
                     'file_size'    => strlen($data['content']),
                     'status'       => 'published',
                     'tags'         => $data['tags'],
+                    'content_type' => $data['content_type'],
                 ]
             );
         }

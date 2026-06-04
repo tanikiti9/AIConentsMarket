@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use OpenApi\Attributes as OA;
 
@@ -39,9 +40,10 @@ class ProductController extends Controller
     public function receiveSidebarFilter(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'selected_tags'   => ['sometimes', 'array'],
-            'selected_tags.*' => ['string', 'max:100'],
-            'text'            => ['sometimes', 'nullable', 'string', 'max:255'],
+            'selected_tags'    => ['sometimes', 'array'],
+            'selected_tags.*'  => ['string', 'max:100'],
+            'text'             => ['sometimes', 'nullable', 'string', 'max:255'],
+            'content_type'     => ['sometimes', 'nullable', 'string', 'in:image,video,audio,text,prompt,model'],
         ]);
 
         $query = Product::where('status', 'published');
@@ -54,6 +56,10 @@ class ProductController extends Controller
             }
         }
 
+        if ($contentType = $validated['content_type'] ?? null) {
+            $query->where('content_type', $contentType);
+        }
+
         if ($text = trim((string) ($validated['text'] ?? ''))) {
             $query->where(function ($q) use ($text) {
                 $q->where('title', 'like', "%{$text}%")
@@ -63,6 +69,13 @@ class ProductController extends Controller
         }
 
         $products = $query->get()->map(fn ($p) => $this->format($p));
+
+        Log::info('[sidebar/filter] リクエスト', [
+            'selected_tags' => $selectedTags,
+            'content_type'  => $validated['content_type'] ?? null,
+            'text'          => $validated['text'] ?? '',
+            'hit_count'     => count($products),
+        ]);
 
         return response()->json($products);
     }
@@ -133,6 +146,7 @@ class ProductController extends Controller
             'download_url' => url("/api/products/{$product->id}/download"),
             'status'       => $product->status,
             'tags'         => $product->tags ?? [],
+            'content_type' => $product->content_type,
             'created_at'   => $product->created_at,
         ];
     }
