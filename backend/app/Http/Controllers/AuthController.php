@@ -16,7 +16,6 @@ class AuthController extends Controller
         summary: 'ユーザー登録',
         tags: ['認証'],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
-            new OA\Property(property: 'name', type: 'string', example: 'テストユーザー'),
             new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
             new OA\Property(property: 'password', type: 'string', example: 'password123'),
         ])),
@@ -25,7 +24,6 @@ class AuthController extends Controller
                 new OA\Property(property: 'token', type: 'string', example: '1|abc123...'),
                 new OA\Property(property: 'user', type: 'object', properties: [
                     new OA\Property(property: 'id', type: 'integer', example: 1),
-                    new OA\Property(property: 'name', type: 'string', example: 'テストユーザー'),
                     new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
                 ]),
             ])),
@@ -57,7 +55,6 @@ class AuthController extends Controller
                 new OA\Property(property: 'token', type: 'string', example: '1|abc123...'),
                 new OA\Property(property: 'user', type: 'object', properties: [
                     new OA\Property(property: 'id', type: 'integer', example: 1),
-                    new OA\Property(property: 'name', type: 'string', example: 'テストユーザー'),
                     new OA\Property(property: 'email', type: 'string', example: 'user@example.com'),
                 ]),
             ])),

@@ -43,8 +43,7 @@ class ProductController extends Controller
             'selected_tags'    => ['sometimes', 'array'],
             'selected_tags.*'  => ['string', 'max:100'],
             'text'             => ['sometimes', 'nullable', 'string', 'max:255'],
-            'content_types'    => ['sometimes', 'array'],
-            'content_types.*'  => ['string', 'in:image,video,audio,text,prompt,model'],
+            'content_type'     => ['sometimes', 'nullable', 'string', 'in:image,video,audio,text,prompt,model'],
         ]);
 
         $query = Product::where('status', 'published');
@@ -57,9 +56,8 @@ class ProductController extends Controller
             }
         }
 
-        $contentTypes = $validated['content_types'] ?? [];
-        if (!empty($contentTypes)) {
-            $query->whereIn('content_type', $contentTypes);
+        if ($contentType = $validated['content_type'] ?? null) {
+            $query->where('content_type', $contentType);
         }
 
         if ($text = trim((string) ($validated['text'] ?? ''))) {
@@ -74,7 +72,7 @@ class ProductController extends Controller
 
         Log::info('[sidebar/filter] リクエスト', [
             'selected_tags' => $selectedTags,
-            'content_types' => $contentTypes,
+            'content_type'  => $validated['content_type'] ?? null,
             'text'          => $validated['text'] ?? '',
             'hit_count'     => count($products),
         ]);
